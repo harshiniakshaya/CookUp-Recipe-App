@@ -1,0 +1,6 @@
+create client
+npm install axios bootstrap react-router-dom
+
+create server
+npm init -y
+npm install express mongoose nodemon cors bcrypt jsonwebtoken cookie-parser
