@@ -4,10 +4,15 @@ import axios from 'axios';
 import "../components/Home.css"
 
 const ReadRecipe = () => {
+    // Get the recipe ID from the URL parameters
     const {id} = useParams();
+    // Get the logged-in user ID from local storage
     const userId = window.localStorage.getItem("id");
+    // State variables to store the recipe details and saved recipes
     const [recipe,setRecipe] = useState([]);
     const [savedRecipes, setSavedRecipes] = useState([]);
+
+    // Function to fetch the recipe details by ID
     useEffect(()=>{
         const getRecipe = () =>{
             axios.get('http://localhost:3001/recipe/recipe-by-id/'+id)
@@ -16,6 +21,8 @@ const ReadRecipe = () => {
             })
             .catch(err => console.log(err))
         }
+
+        // Function to fetch the saved recipes for the logged-in user
         const fetchSavedRecipes = () =>{
             axios.get('http://localhost:3001/recipe/saved-recipes/'+userId)
             .then(result => {
@@ -24,12 +31,15 @@ const ReadRecipe = () => {
             })
             .catch(err => console.log(err))
         }
+
+        // Fetch recipe details and saved recipes when the component mounts
         if(userId){
             fetchSavedRecipes()
         }
         getRecipe()
     },[])
 
+    // Function to save a recipe
     const savedRecipe = (recipeId) => {
         axios.put("http://localhost:3001/recipe", { userId, recipeId })
         .then(result => {
@@ -38,6 +48,7 @@ const ReadRecipe = () => {
         .catch(err => console.log(err));
     }
 
+    // Function to check if a recipe is saved by the user
     const isRecipeSaved = (id) => {
         // console.log("savedRecipes:", savedRecipes);
         // console.log("recipeId:", id);

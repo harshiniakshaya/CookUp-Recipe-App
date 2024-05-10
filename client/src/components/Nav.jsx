@@ -3,18 +3,25 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
+// Navigation Bar component
 const Nav = () => {
     const navigate = useNavigate();
     const userId = window.localStorage.getItem("id");
-    const isLoggedIn = !!userId;
+    const isLoggedIn = !!userId; // Check if user is logged in
+
     // !!: The double exclamation marks !! are used to convert any value into its boolean equivalent. It's a common JavaScript idiom used to ensure that a value is strictly converted to either true or false.
     // console.log(userId);
     // console.log(isLoggedIn)
-    const handleLogout = () =>{
-        window.localStorage.clear();
+
+    // Function to handle logout
+    const handleLogout = () =>{ 
+        window.localStorage.clear(); // Clear user ID from local storage
+
+        // Send logout request to the server
         axios.get('http://localhost:3001/auth/logout')
         .then(result => {
-            navigate('/');
+            navigate('/'); // Redirect to home page
             // window.location.reload();
         })
         .catch(err => console.log(err))

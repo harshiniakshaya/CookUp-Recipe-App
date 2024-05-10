@@ -42,7 +42,7 @@ router.get('/saved-recipes/:id',(req,res)=>{
         if (!result) {
             return res.status(404).json({ error: "User not found" });
         }
-        console.log(result);
+        // console.log(result);
         return res.json(result.savedRecipes);
     })
     .catch(err => res.status(500).json({ error: err.message }));

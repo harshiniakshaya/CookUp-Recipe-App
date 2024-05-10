@@ -3,25 +3,33 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
 
+// Component for user login
 const Login = () => {
+    // State variables to store username and password
     const [username, setUsername] = useState('');
     const[password,setPassword] = useState('');
     const navigate = useNavigate()
 
 
-    //MVC -> request to the server(controller)
     axios.defaults.withCredentials = true;
+
+    // Function to handle form submission
     const handleSubmit = (e) =>{
         e.preventDefault()
+
+        // Sending login request to the server
         axios.post('http://localhost:3001/auth/login',{username,password})
         .then(res=>{
             console.log(res.data);
             if(typeof res.data.id !== 'undefined'){
+                // If login is successful, store user ID in local storage
                 window.localStorage.setItem("id",res.data.id)
             }
             else{
+                // If login fails, display error message
                 alert(res.data.message);
             }
+            // Navigate to home page
             navigate('/')
             console.log(res)
         })

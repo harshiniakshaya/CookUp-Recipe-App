@@ -3,8 +3,12 @@ import axios from 'axios';
 import "../components/Home.css"
 import { Link } from 'react-router-dom';
 
+// Component to display a list of recipes
 const Home = () => {
+  // State to store the fetched recipes
   const [recipes,setRecipes] = useState([])
+
+  // Fetch recipes from the API when the component mounts
   useEffect(()=>{
     axios.get('http://localhost:3001/recipe/recipes')
     .then(response => {
@@ -12,6 +16,7 @@ const Home = () => {
     })
     .catch(err => console.log(err))
   },[])
+  
   return (
     <div className='d-flex justify-content-center'>
       <div>

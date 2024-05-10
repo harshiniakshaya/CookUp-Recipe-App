@@ -20,22 +20,22 @@ app.use('/recipe',recipeRouter)
 
 mongoose.connect('mongodb://127.0.0.1:27017/RecipeApp-MERN');
 
-const storage = multer.diskStorage({
-    destination: (req,file,cb)=>{
-        cb(null,'public/images')
-    },
-    filename:(req,file,cb)=>{
-        cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname))
-    }
-})
+// const storage = multer.diskStorage({
+//     destination: (req,file,cb)=>{
+//         cb(null,'public/images')
+//     },
+//     filename:(req,file,cb)=>{
+//         cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname))
+//     }
+// })
 
-const upload = multer({
-    storage:storage
-})
+// const upload = multer({
+//     storage:storage
+// })
 
-app.post('/upload',upload.single('file'),(req,res)=>{
-    console.log(req.file)
-})
+// app.post('/upload',upload.single('file'),(req,res)=>{
+//     console.log(req.file)
+// })
 
 app.listen(3001,()=>{
     console.log("server is running!");

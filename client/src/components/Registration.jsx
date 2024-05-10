@@ -3,16 +3,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
 
+// Registration component
 const Registration = () => {
+    // State variables to store username and password
     const [username, setUsername] = useState('');
     const[password,setPassword] = useState('');
+
+    // Hook from React Router for navigation
     const navigate = useNavigate();
 
+    // Function to handle form submission
     const handleSubmit = (e) =>{
         e.preventDefault()
+
+         // Send registration request to the server
         axios.post('http://localhost:3001/auth/register',{username,password})
         .then(res=>{
-            navigate('/auth/login')
+            navigate('/auth/login') // Redirect to login page after successful registration
             console.log(res)
         })
         .catch(err=>console.log(err))

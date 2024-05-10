@@ -2,36 +2,44 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+// Component to create a new recipe
 const CreateRecipe = () => {
+     // State to store the recipe data
     const [recipe, setRecipe] = useState({
         name: "",
         description:"",
         ingredients:"",
         imageUrl:"",
-        userId: window.localStorage.getItem("id")
+        userId: window.localStorage.getItem("id")//store user ID in local storage
     })
 
-    const [file,setFile]=useState(null);
+    // const [file,setFile]=useState(null);
 
+    // Hook from React Router for navigation
     const navigate = useNavigate();
 
+     // Function to handle changes in input fields
     const handleChange = (event) =>{
         const {name, value} = event.target
         setRecipe({...recipe,[name]:value})
     }
 
-    const handleUpload = (e) =>{
-        const formdata = new FormData()
-        formdata.append('file',file)
-        axios.post('http:localhost:3001/upload',formdata)
-        .then(res=>console.log(res))
-        .catch(err=>console.log(err))
-    }
+    // const handleUpload = (e) =>{
+    //     const formdata = new FormData()
+    //     formdata.append('file',file)
+    //     axios.post('http:localhost:3001/upload',formdata)
+    //     .then(res=>console.log(res))
+    //     .catch(err=>console.log(err))
+    // }
 
+
+    // Function to handle form submission
     const handleSubmit = (event) =>{
         event.preventDefault()
+        // API call to create a new recipe
         axios.post('http://localhost:3001/recipe/create-recipe',recipe)
         .then(result =>{
+            // Navigate to home page after successful recipe creation
             navigate('/')
             console.log(result.data)
             alert("recipe created")
@@ -73,10 +81,10 @@ const CreateRecipe = () => {
                     />
                 </div>
 
-                <div>
+                {/* <div>
                     <input type="file" onChange={e => setFile(e.target.files[0])}/>
                     <button onClick={handleUpload}>Upload</button>
-                </div>
+                </div> */}
 
                 
 
