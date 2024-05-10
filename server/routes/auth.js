@@ -1,6 +1,6 @@
 const express = require('express')
 const UserModel = require('../models/User')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); //password encryption
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
 

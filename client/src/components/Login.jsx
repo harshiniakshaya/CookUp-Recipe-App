@@ -8,6 +8,8 @@ const Login = () => {
     const[password,setPassword] = useState('');
     const navigate = useNavigate()
 
+
+    //MVC -> request to the server(controller)
     axios.defaults.withCredentials = true;
     const handleSubmit = (e) =>{
         e.preventDefault()
