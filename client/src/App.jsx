@@ -7,6 +7,7 @@ import Nav from './components/Nav'
 import CreateRecipe from './components/CreateRecipe'
 import SavedRecipe from './components/SavedRecipe'
 import ReadRecipe from './components/ReadRecipe'
+import MyRecipes from './components/MyRecipes'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path='/recipe/create-recipe' element={<CreateRecipe />}></Route>
         <Route path='/recipe/saved-recipe' element={<SavedRecipe />}></Route>
         <Route path='/read-recipe/:id' element={<ReadRecipe />}></Route>
+        <Route path='/myrecipes' element={<MyRecipes/>}></Route>
       </Routes>
     </BrowserRouter>
       

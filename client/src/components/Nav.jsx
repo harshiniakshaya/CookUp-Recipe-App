@@ -56,8 +56,13 @@ const Nav = () => {
                                         </Link>
                                     </li>
                                     <li className='nav-item'>
+                                        <Link className='nav-link text-white' to="/myrecipes">
+                                            My Recipes
+                                        </Link>
+                                    </li>
+                                    <li className='nav-item'>
                                         <Link className='nav-link text-white' to="/recipe/saved-recipe">
-                                            Saved Recipe
+                                            Favourites
                                         </Link>
                                     </li>
                                 </>

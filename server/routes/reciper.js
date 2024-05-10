@@ -62,6 +62,20 @@ router.get('/user-recipes/:id',async (req,res)=>{
     }
 })
 
+router.get('/myrecipes/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const recipes = await RecipeModel.find({
+            userId: id
+        });
+        console.log(recipes)
+        res.status(200).json(recipes); // Sending retrieved recipes in the response
+    } catch (err) {
+        res.status(500).json(err); // Sending error response in case of an error
+    }
+});
+
+
 // router.put('/',async (req,res) =>{
 //     const recipe = await RecipeModel.findById({_id: req.body.recipeId})
 //     const user = await UserModel.findById({_id: req.body.id})
