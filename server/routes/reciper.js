@@ -68,7 +68,7 @@ router.get('/myrecipes/:id', async (req, res) => {
         const recipes = await RecipeModel.find({
             userId: id
         });
-        console.log(recipes)
+        // console.log(recipes)
         res.status(200).json(recipes); // Sending retrieved recipes in the response
     } catch (err) {
         res.status(500).json(err); // Sending error response in case of an error
@@ -111,6 +111,53 @@ router.put('/', async (req, res) => {
         await user.save();
 
         return res.json({ savedRecipes: user.savedRecipes });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+router.delete('/:userId/:recipeId', async (req, res) => {
+    try {
+        // console.log('api reached')
+        const recipeId = req.params.recipeId;
+        const userId = req.params.userId;
+        // console.log(recipeId,userId)
+        const user = await UserModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        if (!user.savedRecipes || !user.savedRecipes.includes(recipeId)) {
+            return res.status(404).json({ error: "Recipe not found in user's saved recipes" });
+        }
+
+        user.savedRecipes = user.savedRecipes.filter(savedRecipeId => savedRecipeId.toString() !== recipeId);
+        await user.save();
+
+        return res.json({ savedRecipes: user.savedRecipes });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+router.delete('/deletemyrecipe/:userId/:recipeId', async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const recipeId = req.params.recipeId;
+
+        // Find the recipe by ID and the user ID
+        const recipe = await RecipeModel.findOne({ _id: recipeId, userId: userId });
+
+        if (!recipe) {
+            return res.status(404).json({ error: "Recipe not found or not owned by the user" });
+        }
+
+        // Remove the recipe from the database
+        await recipe.deleteOne();
+
+        return res.status(200).json({ message: "Recipe deleted successfully" });
     } catch (err) {
         console.error(err);
         return res.status(500).json({ error: "Internal server error" });

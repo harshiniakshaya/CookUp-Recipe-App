@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "../components/Home.css"
 import { Link } from 'react-router-dom';
+import { CgProfile } from "react-icons/cg";
 
 // Component to display a list of recipes
 const Home = () => {
@@ -19,8 +20,8 @@ const Home = () => {
   
   return (
     <div className='d-flex justify-content-center'>
-      <div>
-        <h2>Recipes</h2>
+      <div className='container'>
+        <h2 className='text-center'>Recipes</h2>
         {
           recipes.map(recipe => (
             <div key={recipe._id} className='mt-4 p-3 border'> 
@@ -28,6 +29,7 @@ const Home = () => {
                 <h3>{recipe.name}</h3>
               </Link>
               <img src={recipe.imageUrl} alt={recipe.name} className="recipe-image"/>
+              <CgProfile />
             </div>
           ))
         }

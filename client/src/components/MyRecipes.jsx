@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import { MdDelete } from "react-icons/md";
 
 const MyRecipes = () => {
   const [myrecipes,setMyRecipes] = useState([])
@@ -14,6 +15,16 @@ const MyRecipes = () => {
     })
     .catch(err => console.log(err))
   },[])
+
+  const deleteRecipe = (recipeId) => {
+    axios.delete(`http://localhost:3001/recipe/deletemyrecipe/${userId}/${recipeId}`)
+      .then(response => {
+        // Filter out the deleted recipe from the state
+        setMyRecipes(myrecipes.filter(recipe => recipe._id !== recipeId));
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <div className='d-flex justify-content-center'>
       <div>
@@ -24,9 +35,10 @@ const MyRecipes = () => {
           myrecipes.map(recipe => (
             <div key={recipe._id} className='mt-4 p-3 border'>
               <Link to={`/read-recipe/${recipe._id}`} className='text-decoration-none'>
-                <h3>{recipe.name}</h3>
+                <h3>{recipe.name} </h3>
               </Link>
               <img src={recipe.imageUrl} alt={recipe.name} className="recipe-image" />
+              <MdDelete style={{fontSize:'38px', cursor:'pointer'}} onClick={() => deleteRecipe(recipe._id)}/>
             </div>
           ))
         )}

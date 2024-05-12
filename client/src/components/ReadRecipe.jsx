@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import "../components/Home.css"
+import { MdDelete } from "react-icons/md";
 
 const ReadRecipe = () => {
     // Get the recipe ID from the URL parameters
@@ -40,13 +41,35 @@ const ReadRecipe = () => {
     },[])
 
     // Function to save a recipe
-    const savedRecipe = (recipeId) => {
-        axios.put("http://localhost:3001/recipe", { userId, recipeId })
-        .then(result => {
-            setSavedRecipes(result.data.savedRecipes);
-        })
-        .catch(err => console.log(err));
+    // const savedRecipe = (recipeId) => {
+    //     axios.put("http://localhost:3001/recipe", { userId, recipeId })
+    //     .then(result => {
+    //         setSavedRecipes(result.data.savedRecipes);
+    //     })
+    //     .catch(err => console.log(err));
+    // }
+
+
+    const toggleSavedRecipe = (recipeId) => {
+        if (isRecipeSaved(recipeId)) {
+            // If the recipe is already saved, remove it from saved recipes
+            axios.delete(`http://localhost:3001/recipe/${userId}/${recipeId}`)
+            .then(result => {
+                setSavedRecipes(result.data.savedRecipes);
+            })
+            .catch(err => console.log(err));
+        } else {
+            // If the recipe is not saved, save it
+            axios.put("http://localhost:3001/recipe", { userId, recipeId })
+            .then(result => {
+                setSavedRecipes(result.data.savedRecipes);
+            })
+            .catch(err => console.log(err));
+        }
     }
+
+
+
 
     // Function to check if a recipe is saved by the user
     const isRecipeSaved = (id) => {
@@ -67,11 +90,12 @@ const ReadRecipe = () => {
         <div className='p-2'>
         <h2>{recipe.name}</h2>
             {userId && <button className='btn btn-warning' 
-                onClick={() => savedRecipe(recipe._id)}
-                disabled={isRecipeSaved(recipe._id)}
+                onClick={() => toggleSavedRecipe(recipe._id)}
+                // disabled={isRecipeSaved(recipe._id)}
             >
                 {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
             </button>}
+            {/* <MdDelete style={{fontSize:'38px', cursor:'pointer'}} /> */}
             <h3>Description</h3>
             <p>{recipe.description}</p>
             <h3>Ingredients</h3>

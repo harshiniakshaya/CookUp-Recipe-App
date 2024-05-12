@@ -33,7 +33,7 @@ const Nav = () => {
             <div className='container-fluid'>
                 
                 <Link className='navbar-brand' to="/">
-                    Food Recipe
+                    CookUp
                 </Link>
                 <button
                     className="navbar-toggler"
@@ -52,7 +52,7 @@ const Nav = () => {
                                 <>
                                     <li className='nav-item'>
                                         <Link className='nav-link text-white' to="/recipe/create-recipe" aria-current="page">
-                                            Create
+                                            Create Recipe
                                         </Link>
                                     </li>
                                     <li className='nav-item'>
