@@ -39,4 +39,21 @@ router.get('/logout', (req,res)=>{
     res.json({message:"Success"})
 })
 
+router.get('/find-username/:userId',async(req,res)=>{
+    try{
+        const id=req.params.userId;
+        const user = await UserModel.findOne({_id:id})
+        if (!user) {
+            // If user not found, send 404 status with message
+            return res.status(404).json({ message: 'User not found' });
+        }
+        // console.log(user.username)
+        res.json(user);
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+})
+
 module.exports = router;

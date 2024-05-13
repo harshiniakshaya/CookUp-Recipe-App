@@ -19,11 +19,15 @@ const SavedRecipe = () => {
     .catch(err => console.log(err))
   },[])
   return (
-    <div className='d-flex justify-content-center'>
+    <>
+    {/* <div className='d-flex justify-content-center'>
       <div>
         <h2>Saved Recipes</h2>
         {savedrecipes.length === 0 ? ( // Check if saved recipes array is empty
-          <p className="text-center">No saved recipes</p>
+        <>
+          <h3 className="text-center mt-5">You haven't saved any recipes!</h3>
+    
+        </>
         ) : (
           savedrecipes.map(recipe => (
             <div key={recipe._id} className='mt-4 p-3 border'>
@@ -35,7 +39,40 @@ const SavedRecipe = () => {
           ))
         )}
       </div>
+    </div> */}
+    <div className='section'>
+      <div className='container'>
+        <h2 className='text-center my-4'>Saved Recipes</h2>
+        {savedrecipes.length === 0 ?(
+          <>
+            <h3 className="text-center mt-5">You haven't saved any recipes!</h3>
+          </>
+        ):(
+          <div className='row'>
+          {
+            savedrecipes.map(recipe=>(
+              <div className='col-lg-4 col-md-4 col-12' key={recipe._id}>
+                <div className="d-flex justify-content-center">
+                  <div className="card mb-4" style={{ width: '18rem',height: '320px' }} id="recipe">
+                      <img src={recipe.imageUrl} className="card-img-top"/>
+                      <div className="card-body text-center" >
+                          <h5 className="card-title"><strong>{recipe.name}</strong></h5>
+            
+                          <Link to={`/read-recipe/${recipe._id}`} className='text-decoration-none'>
+                            <button className='btn btn-dark'>View Recipe</button>
+                          </Link>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        )}
+        
+      </div>
     </div>
+    </>
   )
 }
 

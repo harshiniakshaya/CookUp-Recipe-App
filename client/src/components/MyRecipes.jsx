@@ -1,50 +1,67 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { MdDelete } from "react-icons/md";
+import { MdDelete } from 'react-icons/md';
 
 const MyRecipes = () => {
-  const [myrecipes,setMyRecipes] = useState([])
-  const userId = window.localStorage.getItem("id");
-  useEffect(()=>{
+  const [myrecipes, setMyRecipes] = useState([]);
+  const userId = window.localStorage.getItem('id');
 
-    axios.get('http://localhost:3001/recipe/myrecipes/'+userId)
-    .then(response => {
-      setMyRecipes(response.data); // Set the fetched recipes in the state
-      console.log("my recipes fetched")
-    })
-    .catch(err => console.log(err))
-  },[])
-
-  const deleteRecipe = (recipeId) => {
-    axios.delete(`http://localhost:3001/recipe/deletemyrecipe/${userId}/${recipeId}`)
+  useEffect(() => {
+    axios.get(`http://localhost:3001/recipe/myrecipes/${userId}`)
       .then(response => {
-        // Filter out the deleted recipe from the state
-        setMyRecipes(myrecipes.filter(recipe => recipe._id !== recipeId));
+        setMyRecipes(response.data); // Set the fetched recipes in the state
+        console.log('my recipes fetched');
       })
       .catch(err => console.log(err));
+  }, []);
+
+  const deleteRecipe = (recipeId) => {
+    if (window.confirm('Are you sure you want to delete this recipe?')) {
+      axios.delete(`http://localhost:3001/recipe/deletemyrecipe/${userId}/${recipeId}`)
+        .then(response => {
+          // Filter out the deleted recipe from the state
+          setMyRecipes(myrecipes.filter(recipe => recipe._id !== recipeId));
+        })
+        .catch(err => console.log(err));
+    }
   };
 
   return (
-    <div className='d-flex justify-content-center'>
-      <div>
-        <h2>My Recipes</h2>
-        {myrecipes.length === 0 ? ( // Check if saved recipes array is empty
-          <p className="text-center">No saved recipes</p>
-        ) : (
-          myrecipes.map(recipe => (
-            <div key={recipe._id} className='mt-4 p-3 border'>
-              <Link to={`/read-recipe/${recipe._id}`} className='text-decoration-none'>
-                <h3>{recipe.name} </h3>
-              </Link>
-              <img src={recipe.imageUrl} alt={recipe.name} className="recipe-image" />
-              <MdDelete style={{fontSize:'38px', cursor:'pointer'}} onClick={() => deleteRecipe(recipe._id)}/>
+    <div className="container" style={{ marginTop: '80px' }}>
+      <h2 className="text-center my-4">My Recipes</h2>
+      {myrecipes.length === 0 ? (
+        <div className="text-center">
+          <h3 className="mt-5">You haven't posted any recipes yet!</h3>
+          <Link to="/recipe/create-recipe"><button className="btn btn-dark mt-4"> Create Recipe</button></Link>
+        </div>
+      ) : (
+        <div className="row">
+          {myrecipes.map(recipe => (
+            <div className="col-lg-4 col-md-6 col-sm-12" key={recipe._id}>
+            <div className="d-flex justify-content-center">
+              <div className="card mb-4" style={{ width: '250px', height: '350px' }} id="myrecipe">
+                <img src={recipe.imageUrl} className="card-img-top" alt="Recipe" />
+                <div className="card-body text-center">
+                  <h5 className="card-title">
+                    <Link to={`/read-recipe/${recipe._id}`} className="text-black text-decoration-none">
+                      <h3>{recipe.name} </h3>
+                    </Link>
+                  </h5>
+                  <button href="#" className="btn btn-dark px-3 m-2"
+                    onClick={() => deleteRecipe(recipe._id)}
+                  >
+                    Delete <MdDelete style={{ fontSize: '20px', cursor: 'pointer', textAlign: 'center' }} />
+                  </button>
+                </div>
+              </div>
+              </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default MyRecipes
+export default MyRecipes;

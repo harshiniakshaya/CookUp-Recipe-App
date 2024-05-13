@@ -28,23 +28,23 @@ const Registration = () => {
 
   return (
     <div className='d-flex justify-content-center align-items-center vh-100'>
-        <div className='p-3 border border-1 w-25'>
-            <h3>REGISTER</h3>
+        <div className='p-5 border border-3 w-auto'>
+            <h3 className='text-center fw-bold '>REGISTER</h3>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className='mb-3'>
                     <label htmlFor='username'>Username</label>
                     <input type='text'placeholder='Enter Username' className='form-control'
                         onChange={(e)=>setUsername(e.target.value)}
                     />
                 </div>
-                <div>
+                <div className='mb-3'>
                     <label htmlFor='username'>Password</label>
                     <input type='password' placeholder='Enter Password' className='form-control'
                         onChange={(e)=>setPassword(e.target.value)}
                     />
                 </div>
-                <button className='mt-1 btn btn-success w-100'>Submit</button>
-                <Link to="/auth/login"><button className='btn btn-default w-100 mt-2 border'>Login</button></Link>
+                <button className='mt-1 btn btn-dark w-100'>Submit</button>
+                <Link to="/auth/login"><button className='btn btn-light w-100 mt-2 border'>Login</button></Link>
             </form>
         </div>
     </div>

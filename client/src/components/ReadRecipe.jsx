@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import "../components/Home.css"
 import { MdDelete } from "react-icons/md";
+import Nav from './Nav';
 
 const ReadRecipe = () => {
     // Get the recipe ID from the URL parameters
@@ -83,7 +84,8 @@ const ReadRecipe = () => {
     
 
   return (
-    <div className='d-flex justify-content-center container mt-3'>
+    <>
+    {/* <div className='d-flex justify-content-center container mt-5'>
         <div className='p-2'>
         <img  src={recipe.imageUrl} alt='' className='recipe-image'/>
         </div>
@@ -91,18 +93,39 @@ const ReadRecipe = () => {
         <h2>{recipe.name}</h2>
             {userId && <button className='btn btn-warning' 
                 onClick={() => toggleSavedRecipe(recipe._id)}
-                // disabled={isRecipeSaved(recipe._id)}
             >
                 {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
             </button>}
-            {/* <MdDelete style={{fontSize:'38px', cursor:'pointer'}} /> */}
+            
             <h3>Description</h3>
             <p>{recipe.description}</p>
             <h3>Ingredients</h3>
             <p>{recipe.ingredients}</p>
         
         </div>
+    </div> */}
+    <div className='section ' id="read-recipe-id">
+        <div className='container-fuild'>
+            <div className='row'>
+                <div className='col-lg-6 col-md-6 col-12 text-center d-flex justify-content-center align-items-center'>
+                    <img src={recipe.imageUrl} className='img-fluid'/>
+                </div>
+                <div className='col-lg-6 col-md-6 col-12 text-center '>
+                    <h1 className='mt-2'>{recipe.name}</h1>
+                        {userId && <button className='btn btn-dark mb-2' 
+                                        onClick={() => toggleSavedRecipe(recipe._id)}
+                                    >
+                                        {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
+                                    </button>}
+                    <h3>Description</h3>
+                    <p>{recipe.description}</p>
+                    <h3>Ingredients</h3>
+                    <p>{recipe.ingredients}</p>
+                </div>
+            </div>
+        </div>
     </div>
+    </>
   )
 }
 

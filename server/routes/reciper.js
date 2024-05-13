@@ -15,7 +15,10 @@ router.post('/create-recipe',(req,res)=>{
     .then(result=>{
         return res.json(result)
     })
-    .catch(err=> console.log(err));
+    .catch(err=> {
+        console.log(err)
+        return res.status(500).json({message:'Give all details to create a recipe!'})
+    });
 })
 
 router.get('/recipes',(req,res)=>{

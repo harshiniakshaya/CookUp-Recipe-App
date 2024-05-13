@@ -44,41 +44,35 @@ const CreateRecipe = () => {
             console.log(result.data)
             alert("recipe created")
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            alert(err.response.data.message)
+        });
     }
 
   return (
     <>
        <div className='d-flex justify-content-center align-items-center vh-100'>
-        <div className='p-3 border border-1 w-25'>
-            <h3>Create Recipe</h3>
+        <div className='p-3 border border-3 border-dark w-50'>
+            <h3 className='text-center mb-4'>Create Recipe</h3>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor='name'>Name</label>
-                    <input type='text' placeholder='Enter Name' className='form-control' name='name'
-                        onChange={handleChange}
-                    />
+                <div className="mb-3">
+                    <label htmlFor='name' className="form-label">Name</label>
+                    <input type='text' placeholder='Enter Name' className='form-control' name='name' onChange={handleChange} />
                 </div>
 
-                <div className='mt-2'>
-                    <label htmlFor='description'>Description</label>
-                    <input type='text' placeholder='Enter Description' className='form-control' name='description'
-                        onChange={handleChange}
-                    />
+                <div className="mb-3">
+                    <label htmlFor='description' className="form-label">Description</label>
+                    <input type='text' placeholder='Enter Description' className='form-control' name='description' onChange={handleChange} />
                 </div>
 
-                <div className='mt-2'>
-                    <label htmlFor='ingredients'>Ingredients</label>
-                    <input type='text' placeholder='Enter Ingredients' className='form-control' name='ingredients'
-                        onChange={handleChange}
-                    />
+                <div className="mb-3">
+                    <label htmlFor='ingredients' className="form-label">Ingredients</label>
+                    <input type='text' placeholder='Enter Ingredients' className='form-control' name='ingredients' onChange={handleChange} />
                 </div>
 
-                <div className='mt-2'>
-                    <label htmlFor='imageUrl'>Image URL</label>
-                    <input type='text' placeholder='Enter URL' className='form-control' name='imageUrl'
-                        onChange={handleChange}
-                    />
+                <div className="mb-3">
+                    <label htmlFor='imageUrl' className="form-label">Image URL</label>
+                    <input type='text' placeholder='Enter URL' className='form-control' name='imageUrl' onChange={handleChange} />
                 </div>
 
                 {/* <div>
@@ -88,7 +82,7 @@ const CreateRecipe = () => {
 
                 
 
-                <button className='mt-1 btn btn-success w-100 mt-2 mb-3'>Submit</button>
+                <button className='mt-1 btn btn-dark w-100 mt-2 mb-3'>Submit</button>
             </form>
         </div>
         </div> 

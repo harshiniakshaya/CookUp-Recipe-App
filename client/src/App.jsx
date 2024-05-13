@@ -8,7 +8,7 @@ import CreateRecipe from './components/CreateRecipe'
 import SavedRecipe from './components/SavedRecipe'
 import ReadRecipe from './components/ReadRecipe'
 import MyRecipes from './components/MyRecipes'
-
+import "./components/Home.css"
 const App = () => {
   return (
     <div>
