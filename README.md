@@ -1,3 +1,3 @@
-# Recipe-App-MERN
+# CookUp - A Recipe App using MERN
 - This repository contains the full-stack codebase for a web application built with MERN. The backend provides RESTful API endpoints for user registration, login, logout, retrieving user & recipe information, etc., Passwords are securely hashed using bcrypt, ensuring robust security for user authentication. Authentication is implemented using JWT (JSON Web Tokens), allowing for stateless and secure communication between the client and server. The backend integrates seamlessly with a MongoDB database using Mongoose, facilitating data storage and retrieval with ease. The frontend, developed with React and Vite, offers a modern and responsive user interface, enriched with features like Axios for HTTP requests, Bootstrap for styling, and React Router for client-side routing.
 - [Demo View](https://www.youtube.com/watch?v=Pa3cltQwBZE)
